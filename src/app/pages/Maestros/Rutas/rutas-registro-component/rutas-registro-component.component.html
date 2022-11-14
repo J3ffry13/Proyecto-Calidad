@@ -1,0 +1,44 @@
+<div>
+    <h3 class="text-2xl font-bold">{{ titulo }}</h3>
+</div>
+<div style="width: 80%;margin:auto!important;">
+<div  >
+    <form novalidate [formGroup]="ruta">
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 mb-6 w-full group">
+                <label for="codigo" class="block mb-2 text-sm font-medium text-gray-900 ">Codigo</label>
+                <input type="text" id="codigo" minlength="1" maxlength="4" digitOnlyNumbers formControlName="codigo"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Código" required>
+            </div>
+            <div class="relative z-0 mb-6 w-full group">
+                <label for="nombreOrigen" class="block mb-2 text-sm font-medium text-gray-900 ">Origen</label>
+                <input type="text" id="nombreOrigen" formControlName="nombreOrigen"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Origen" required>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div>
+                <label for="nombreDestino" class="block mb-2 text-sm font-medium text-gray-900 ">Destino</label>
+                <input type="text" id="nombreDestino"  
+                formControlName="nombreDestino"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
+                placeholder="Destino" required>
+            </div>
+            <div class="relative z-0 m-auto w-full group">
+                <button type="submit" 
+                (click)="cancelar()"
+                class="  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                > 
+                     Cancel</button>
+                <button type="submit" 
+                (click)="guardar()"
+                class=" ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                    Guardar</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
+</div>
