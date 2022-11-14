@@ -24,13 +24,15 @@ import { ProgramacionViajesListadoComponent } from './pages/Procesos/Programacio
 import { ProgramacionViajesRegistroComponent } from './pages/Procesos/ProgramacionViajes/programacion-viajes-registro/programacion-viajes-registro.component';
 import { RutasComponentComponent } from './pages/Maestros/Rutas/rutas-Listado-component/rutas-component.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RutasRegistroComponentComponent } from './pages/Maestros/Rutas/rutas-registro-component/rutas-registro-component.component'
+import { RutasRegistroComponentComponent } from './pages/Maestros/Rutas/rutas-registro-component/rutas-registro-component.component';
+import { CiudadesListadoComponentesComponent } from './pages/Maestros/Ciudades/ciudades-listado-componentes/ciudades-listado-componentes.component'
 
 
 const routes: Routes = [
   {path: '', component: InicioComponent },
   //MAESTROS  
   {path: 'maestros/rutas', component: RutasComponentComponent },
+  {path: 'maestros/ciudades', component: CiudadesListadoComponentesComponent },
   {path: 'maestros/rutas/save', component: RutasRegistroComponentComponent },
   //PROCESOS
   {path: 'procesos/programacion', component: ProgramacionViajesListadoComponent },
@@ -46,6 +48,7 @@ const routes: Routes = [
     ProgramacionViajesRegistroComponent,
     RutasComponentComponent,
     RutasRegistroComponentComponent,
+    CiudadesListadoComponentesComponent,
   ],
   entryComponents: [
     RutasRegistroComponentComponent
