@@ -1,5 +1,5 @@
 export class AsientosModel {
-    nro?: string;
+    nro?: number;
     codigo?: string
 	numero: string;
     posicion: string;

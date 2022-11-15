@@ -28,6 +28,8 @@ import { RutasRegistroComponentComponent } from './pages/Maestros/Rutas/rutas-re
 import { CiudadesListadoComponentesComponent } from './pages/Maestros/Ciudades/ciudades-listado-componentes/ciudades-listado-componentes.component';
 import { TrabajadorListadoComponentesComponent } from './pages/Maestros/Trabajador/trabajador-listado-componentes/trabajador-listado-componentes.component';
 import { TerminalListadoComponentesComponent } from './pages/Maestros/Terminal/terminal-listado-componentes/terminal-listado-componentes.component';
+import { VentaBoletosListadoComponent } from './pages/Procesos/VentaBoletos/VentaBoletos-Listado/VentaBoletos-Listado.component';
+import { VentaBoletosRegistroComponent } from './pages/Procesos/VentaBoletos/VentaBoletos-Registro/VentaBoletos-Registro.component';
 
 
 
@@ -39,6 +41,7 @@ const routes: Routes = [
   {path: 'maestros/rutas/save', component: RutasRegistroComponentComponent },
   //PROCESOS
   {path: 'procesos/programacion', component: ProgramacionViajesListadoComponent },
+  {path: 'procesos/ventaBoletos', component: VentaBoletosListadoComponent },
 ]
 
 @NgModule({
@@ -54,10 +57,13 @@ const routes: Routes = [
     CiudadesListadoComponentesComponent,
     TrabajadorListadoComponentesComponent,
     TerminalListadoComponentesComponent,
+    VentaBoletosListadoComponent,
+    VentaBoletosRegistroComponent,
   ],
   entryComponents: [
     RutasRegistroComponentComponent,
     ProgramacionViajesRegistroComponent,
+    VentaBoletosRegistroComponent,
   ],
   imports: [
     BrowserModule,

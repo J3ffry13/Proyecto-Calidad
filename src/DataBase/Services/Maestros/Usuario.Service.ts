@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private url: string = environment.api + 'usuariosnuevo/';
+  private url: string = environment.api + 'usuarios/';
 
   private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' });
 
