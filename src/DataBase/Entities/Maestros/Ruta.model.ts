@@ -1,8 +1,10 @@
 export class RutaModel {
     nro?: number;
-    codigo?: number
+    codigo?: string
 	nombreOrigen: string;
+	nombreOrigenN: string = '';
     nombreDestino: string;
+    nombreDestinoN: string = '';
     estado?: number
 
     // clear() {

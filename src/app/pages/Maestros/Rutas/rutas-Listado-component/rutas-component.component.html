@@ -27,17 +27,17 @@
           <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
         </ng-container>
       
-        <ng-container matColumnDef="nombreOrigen">
+        <ng-container matColumnDef="nombreOrigenN">
           <th mat-header-cell *matHeaderCellDef> ORIGEN </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombreOrigen}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.nombreOrigenN}} </td>
         </ng-container>
       
-        <ng-container matColumnDef="nombreDestino">
+        <ng-container matColumnDef="nombreDestinoN">
           <th mat-header-cell *matHeaderCellDef> DESTINO </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombreDestino}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.nombreDestinoN}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <!-- <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> ... </th>
             <td mat-cell *matCellDef="let element"> 
                 <button (click)="nuevoReg(element)">
@@ -47,7 +47,7 @@
                     <mat-icon style="color: rgb(231, 76, 60 );">delete</mat-icon>
                 </button>    
             </td>
-          </ng-container>
+          </ng-container> -->
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

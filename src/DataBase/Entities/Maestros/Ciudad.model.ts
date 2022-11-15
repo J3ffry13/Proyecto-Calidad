@@ -1,7 +1,7 @@
 export class CiudadModel {
-    nro?: number;
-    codigo?: number
-	nombre: string;
+    nro: number = 0;
+    codigo: string = '';
+	nombre: string = '';
 
     // clear() {
     //     this.nro = 0;

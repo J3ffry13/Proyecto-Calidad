@@ -11,14 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   export class RutaService {
     
     private base = environment.api
-    private url: string = this.base + '/rutas';
+    private url: string = this.base + 'rutas/';
   
     private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' });
   
     //get-all
     constructor(private http: HttpClient) {}
     getAll(): Observable<RutaModel[]> {
-      return this.http.get<RutaModel[]>(this.url);
+      return this.http.get<RutaModel[]>(this.url+'consultarT?patron=');
     }
   
     //grabar
