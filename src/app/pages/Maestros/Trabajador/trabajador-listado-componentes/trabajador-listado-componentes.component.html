@@ -1,1 +1,58 @@
-<p>trabajador-listado-componentes works!</p>
+<app-header></app-header>
+<div>
+    <h1 class="m-10 text-xl text-center font-extrabold tracking-tight leading-none text-black-900 md:text-5xl lg:text-6xl dark:text-black">Maestros de Trabajador</h1>
+</div>
+<div>
+    <div style="height: 50px; align-items: center; margin: auto;">
+        <!-- <div style="float: right; margin-right: 30px;">
+      <button type="button" (click)="nuevoReg()"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        Nuevo</button>
+    </div> -->
+    </div>
+</div>
+<div style="width: 95%; margin: auto;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <ng-container matColumnDef="nro">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef class="mat-"> CODIGO </th>
+            <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="funcion">
+            <th mat-header-cell *matHeaderCellDef> FUNCION </th>
+            <td mat-cell *matCellDef="let element"> {{element.funcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef> USUARIO </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> ... </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button (click)="nuevoReg(element)">
+                    <mat-icon style="color: rgb(52, 152, 219 ); margin-right: 20px;">edit</mat-icon>
+                </button>   
+                <button>
+                    <mat-icon style="color: rgb(231, 76, 60 );">delete</mat-icon>
+                </button>    
+            </td>
+          </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+
+<app-footer></app-footer>
