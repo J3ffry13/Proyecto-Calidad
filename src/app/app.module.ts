@@ -25,7 +25,10 @@ import { ProgramacionViajesRegistroComponent } from './pages/Procesos/Programaci
 import { RutasComponentComponent } from './pages/Maestros/Rutas/rutas-Listado-component/rutas-component.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RutasRegistroComponentComponent } from './pages/Maestros/Rutas/rutas-registro-component/rutas-registro-component.component';
-import { CiudadesListadoComponentesComponent } from './pages/Maestros/Ciudades/ciudades-listado-componentes/ciudades-listado-componentes.component'
+import { CiudadesListadoComponentesComponent } from './pages/Maestros/Ciudades/ciudades-listado-componentes/ciudades-listado-componentes.component';
+import { TrabajadorListadoComponentesComponent } from './trabajador-listado-componentes/trabajador-listado-componentes.component';
+import { TerminalListadoComponentesComponent } from './terminal-listado-componentes/terminal-listado-componentes.component';
+import { BusesListadoComponentesComponent } from './buses-listado-componentes/buses-listado-componentes.component'
 
 
 const routes: Routes = [
@@ -49,6 +52,9 @@ const routes: Routes = [
     RutasComponentComponent,
     RutasRegistroComponentComponent,
     CiudadesListadoComponentesComponent,
+    TrabajadorListadoComponentesComponent,
+    TerminalListadoComponentesComponent,
+    BusesListadoComponentesComponent,
   ],
   entryComponents: [
     RutasRegistroComponentComponent
