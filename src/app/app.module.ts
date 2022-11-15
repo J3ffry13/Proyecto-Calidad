@@ -26,9 +26,9 @@ import { RutasComponentComponent } from './pages/Maestros/Rutas/rutas-Listado-co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RutasRegistroComponentComponent } from './pages/Maestros/Rutas/rutas-registro-component/rutas-registro-component.component';
 import { CiudadesListadoComponentesComponent } from './pages/Maestros/Ciudades/ciudades-listado-componentes/ciudades-listado-componentes.component';
-import { TrabajadorListadoComponentesComponent } from './trabajador-listado-componentes/trabajador-listado-componentes.component';
-import { TerminalListadoComponentesComponent } from './terminal-listado-componentes/terminal-listado-componentes.component';
-import { BusesListadoComponentesComponent } from './buses-listado-componentes/buses-listado-componentes.component'
+import { TrabajadorListadoComponentesComponent } from './pages/Maestros/Trabajador/trabajador-listado-componentes/trabajador-listado-componentes.component';
+import { TerminalListadoComponentesComponent } from './pages/Maestros/Terminal/terminal-listado-componentes/terminal-listado-componentes.component';
+
 
 
 const routes: Routes = [
@@ -54,7 +54,6 @@ const routes: Routes = [
     CiudadesListadoComponentesComponent,
     TrabajadorListadoComponentesComponent,
     TerminalListadoComponentesComponent,
-    BusesListadoComponentesComponent,
   ],
   entryComponents: [
     RutasRegistroComponentComponent
