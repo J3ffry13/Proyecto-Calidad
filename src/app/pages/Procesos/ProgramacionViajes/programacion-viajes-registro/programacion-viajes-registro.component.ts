@@ -78,7 +78,7 @@ export class ProgramacionViajesRegistroComponent implements OnInit {
   }
   obtenerTitulo(){
     if(this.programacion != undefined ){
-      this.titulo = 'Editar Programacion' + this.programacion.codigo
+      this.titulo = 'Editar Programacion ' + this.programacion.codigo
       this.prog.controls['codigo'].disable();
     }else {
       this.titulo = 'Nueva Programacion'
@@ -95,7 +95,7 @@ export class ProgramacionViajesRegistroComponent implements OnInit {
     this.programacion = this.prog.getRawValue();
     console.log(this.programacion);
     //ENVIAR DATOS AL SERVER :c
-    
+
     this.dialogRef.close();
   }
 
