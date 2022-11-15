@@ -17,6 +17,13 @@ import { CiudadModel } from 'src/DataBase/Entities/Maestros/Ciudad.model';
   
     //get-all
     constructor(private http: HttpClient) {}
+
+  //   getAll = async () => {
+  //     const servicioGeneral = this.http.get<CiudadModel[]>(this.url+'consultar?patron=');
+  //    // return await this.http.get<RutaModel[]>(this.url+'consultarT?patron=');
+  //    return await servicioGeneral;
+  //  };
+
     getAll(): Observable<CiudadModel[]> {
       return this.http.get<CiudadModel[]>(this.url+'consultar?patron=');
     }

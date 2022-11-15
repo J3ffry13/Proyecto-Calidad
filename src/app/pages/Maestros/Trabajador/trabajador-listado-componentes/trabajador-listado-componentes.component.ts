@@ -24,15 +24,15 @@ export class TrabajadorListadoComponentesComponent implements OnInit {
     // this.consultarDatos();
 
     //TEMPORAL (RLIMINAR UNA VEZ HAYA API)
-    this.listadoTrabajadores = [
-      {codigo: 1, funcion: 'Trujillo', usuario: 'Lima'},
-      {codigo: 2, funcion: 'Trujillo', usuario: 'Lima'},
-      {codigo: 3, funcion: 'Trujillo', usuario: 'Lima'},
-      {codigo: 4, funcion: 'Trujillo', usuario: 'Lima'},
-    ];
-    for (let i = 0; i < this.listadoTrabajadores.length; i++){
-      this.listadoTrabajadores[i].nro = i + 1;
-    }
+    // this.listadoTrabajadores = [
+    //   {codigo: 1, funcion: 'Trujillo', usuario: 'Lima'},
+    //   {codigo: 2, funcion: 'Trujillo', usuario: 'Lima'},
+    //   {codigo: 3, funcion: 'Trujillo', usuario: 'Lima'},
+    //   {codigo: 4, funcion: 'Trujillo', usuario: 'Lima'},
+    // ];
+    // for (let i = 0; i < this.listadoTrabajadores.length; i++){
+    //   this.listadoTrabajadores[i].nro = i + 1;
+    // }
     this.dataSource = this.listadoTrabajadores;
   }
 
@@ -49,13 +49,13 @@ export class TrabajadorListadoComponentesComponent implements OnInit {
   }*/
 
   //PARA CUANDO EL API LEVANTE
-  // consultarDatos(){
-  //   this.trabajadorService.getAll().subscribe(
-  //     trabajador => { 
-  //       this.listadoTrabajadores = trabajador;
-  //       this.dataSource = this.listadoTrabajadores;
-  //     }
-  //   );
-  // }
+  consultarDatos(){
+    this.trabajadorService.getAll().subscribe(
+      trabajador => { 
+        this.listadoTrabajadores = trabajador;
+        this.dataSource = this.listadoTrabajadores;
+      }
+    );
+  }
 
 }

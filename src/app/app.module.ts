@@ -56,7 +56,8 @@ const routes: Routes = [
     TerminalListadoComponentesComponent,
   ],
   entryComponents: [
-    RutasRegistroComponentComponent
+    RutasRegistroComponentComponent,
+    ProgramacionViajesRegistroComponent,
   ],
   imports: [
     BrowserModule,

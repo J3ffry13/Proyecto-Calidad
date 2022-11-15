@@ -11,14 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   export class TerminalService {
     
     private base = environment.api
-    private url: string = this.base + '/rutas';
+    private url: string = this.base + 'terminales/';
   
     private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' });
   
     //get-all
     constructor(private http: HttpClient) {}
     getAll(): Observable<TerminalModel[]> {
-      return this.http.get<TerminalModel[]>(this.url);
+      return this.http.get<TerminalModel[]>(this.url+'consultarT?patron=');
     }
   
     //grabar

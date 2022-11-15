@@ -11,14 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   export class TrabajadorService {
     
     private base = environment.api
-    private url: string = this.base + '/rutas';
+    private url: string = this.base + 'trabajadores/';
   
     private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' });
   
     //get-all
     constructor(private http: HttpClient) {}
     getAll(): Observable<TrabajadorModel[]> {
-      return this.http.get<TrabajadorModel[]>(this.url);
+      return this.http.get<TrabajadorModel[]>(this.url + 'consultar?patron=');
     }
   
     //grabar

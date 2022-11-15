@@ -1,8 +1,10 @@
 export class TrabajadorModel {
     nro?: number;
-    codigo?: number
+    codigo?: string
 	funcion: string;
     usuario: string;
+    nombre: string;
+    dni: string;
 
     // clear() {
     //     this.nro = 0;

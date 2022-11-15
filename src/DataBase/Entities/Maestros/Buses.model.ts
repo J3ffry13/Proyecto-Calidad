@@ -1,23 +1,13 @@
 export class BusesModel {
-    nro?: number;
-    codigo?: number
+    nro?: string;
+    codigo?: string
 	placa: string;
     marca: string;
     modelo: string;
     serie: string;
-    pisos: number;
-    asientos: number;
+    pisos: string;
+    asientos: string;
     servicio: string;
 
-    // clear() {
-    //     this.nro = 0;
-    //     this.codigo = 0;
-    //     this.placa = '',
-    //     this.marca = '';
-    //     this.modelo = '';
-    //     this.serie = '';
-    //     this.pisos = 0;
-    //     this.asientos = 0;
-    //     this.servicio = '';
-    // }
+
 }

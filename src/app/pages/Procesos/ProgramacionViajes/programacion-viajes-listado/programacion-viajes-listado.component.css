@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+  }
+
+.mat-header-cell {
+    font-size: 15px;
+    padding: auto;
+    text-align: center !important;
+}
+
+.mat-cell {
+    font-size: 15px;
+    padding: auto;
+    text-align: center !important;
+}
+
+.w-75{
+    width: 75px;
+}
+
+.w-100{
+    width: 100px;
+}
+
+.th-center{
+    text-align: center;
+}
+.th-left{
+    text-align: left;
+}
+.th-right{
+    text-align: right;
+}

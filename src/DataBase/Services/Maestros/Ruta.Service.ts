@@ -17,6 +17,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   
     //get-all
     constructor(private http: HttpClient) {}
+
     getAll(): Observable<RutaModel[]> {
       return this.http.get<RutaModel[]>(this.url+'consultarT?patron=');
     }
