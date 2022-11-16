@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { forkJoin, of, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CiudadModel } from 'src/DataBase/Entities/Maestros/Ciudad.model';
@@ -14,6 +14,8 @@ import { UsuarioService } from 'src/DataBase/Services/Maestros/Usuario.Service';
 import { ProgViajesService } from 'src/DataBase/Services/Procesos/ProgramacionViajes.Service';
 import { BusesService } from 'src/DataBase/Services/Maestros/Buses.Service';
 import { ProgramacionViajesRegistroComponent } from '../programacion-viajes-registro/programacion-viajes-registro.component'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { ProgramacionViajesRegistroComponent } from '../programacion-viajes-regi
   styleUrls: ['./programacion-viajes-listado.component.css'],
 })
 export class ProgramacionViajesListadoComponent implements OnInit {
-  dataSource: any[] = [];
+  dataSource = new MatTableDataSource<any>()
   listadoResult: ProgViajeModel[] = [];
   listadoResultf: ProgViajeModel[] = [];
   listadoCiudades: CiudadModel[] = [];
@@ -40,6 +42,7 @@ export class ProgramacionViajesListadoComponent implements OnInit {
     'busN',
     'actions',
   ];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private progviajeService: ProgViajesService,
@@ -138,7 +141,8 @@ export class ProgramacionViajesListadoComponent implements OnInit {
         this.listadoResultf = this.listadoResult.filter(function(obj){
           return obj.estado == '1';
         }); 
-        this.dataSource = this.listadoResultf;
+        this.dataSource.data = this.listadoResultf;
+        this.dataSource.paginator = this.paginator;
       }
     );
   }

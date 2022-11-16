@@ -21,6 +21,7 @@ import { ServicioModel } from 'src/DataBase/Entities/Maestros/Servicio.model';
 import { AsientosModel } from 'src/DataBase/Entities/Maestros/Asientos.model';
 import { VentBoletosModel } from 'src/DataBase/Entities/Procesos/VentBoletos.model';
 import { ProgViajeModel } from 'src/DataBase/Entities/Procesos/ProgViaje.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-VentaBoletos-registro',
@@ -60,7 +61,7 @@ export class VentaBoletosRegistroComponent implements OnInit {
 
   ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.programacion = this.data.data
     console.log(this.programacion);
     this.consultarInfo();
@@ -89,8 +90,12 @@ export class VentaBoletosRegistroComponent implements OnInit {
         }
       )
     }
-   
+
     this.prog.get("ruta")?.valueChanges.subscribe((selectedValue) => {
+      console.log(this.listadoViajes);
+      console.log(this.listadoViajes.filter(
+        (f) => f.ruta == selectedValue,
+      ));
       this.listadoViajesf = this.listadoViajes.filter(
         (f) => f.ruta == selectedValue,
       );
@@ -107,10 +112,10 @@ export class VentaBoletosRegistroComponent implements OnInit {
         (f) => f.codigo == selectedValue,
       )?.bus;
       this.listadoAsientosf = this.listadoAsientos.filter(
-        (f) => f.bus == busID,
+        (f) => f.bus === busID,
       );
     });
-    
+
   }
   obtenerTitulo(){
     if(this.programacion != undefined ){
@@ -126,32 +131,34 @@ export class VentaBoletosRegistroComponent implements OnInit {
   }
 
   guardar(){
-    
-    //OBTENEMOS DATOS :c
-    
-
     //ENVIAR DATOS AL SERVER :c
     if(this.programacion != undefined ){
-      this.programacion.codigo = this.prog.value.codigo;
-      this.programacion.pasajero = this.prog.value.pasajero;
-      this.programacion.asiento = this.prog.value.asiento;
-      this.programacion.viaje = this.prog.value.viaje;
-      this.programacion.fecha = this.prog.value.fecha;
+      this.programacion = this.prog.getRawValue();
       this.boletosService.update(this.programacion).subscribe(
         res => {
-          console.log(res);
+          if(res.msj == 'OK'){
+            swal.fire('Editado de datos exitoso', `Ingreso ${this.programacion.codigo} editado con exito`, 'success')
+          }
+          else{
+            swal.fire('Error de registro', `Ingreso ${this.programacion.codigo} ya existe o con completo campos`, 'warning')
+          }
         }
       )
     }else {
       this.programacion = this.prog.getRawValue();
-    
+
       this.boletosService.create(this.programacion).subscribe(
         res => {
-          console.log(res);
+          if(res.msj == 'OK'){
+            swal.fire('Ingreso de datos exitoso', `Ingreso ${this.programacion.codigo} ingresado con exito`, 'success')
+          }
+          else{
+            swal.fire('Error de registro', `Ingreso ${this.programacion.codigo} ya existe o con completo campos`, 'warning')
+          }
         }
       )
     }
-    
+
     this.dialogRef.close();
   }
 
