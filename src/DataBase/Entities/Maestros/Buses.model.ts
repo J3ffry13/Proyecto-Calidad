@@ -8,6 +8,6 @@ export class BusesModel {
     pisos: string;
     asientos: string;
     servicio: string;
-
+    precio: number;
 
 }

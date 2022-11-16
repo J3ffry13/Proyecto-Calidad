@@ -8,10 +8,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
     providedIn: 'root',
   })
-  export class AsientosService {
+  export class ServicioService {
     
     private base = environment.api
-    private url: string = this.base + 'servicio/';
+    private url: string = this.base + 'servicios/';
   
     private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' });
   

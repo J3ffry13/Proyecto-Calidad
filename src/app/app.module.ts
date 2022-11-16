@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   //MAESTROS  
   {path: 'maestros/rutas', component: RutasComponentComponent },
   {path: 'maestros/ciudades', component: CiudadesListadoComponentesComponent },
+  {path: 'maestros/terminales', component: TerminalListadoComponentesComponent },
   {path: 'maestros/rutas/save', component: RutasRegistroComponentComponent },
   //PROCESOS
   {path: 'procesos/programacion', component: ProgramacionViajesListadoComponent },
@@ -78,6 +80,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatPaginatorModule,
   ],
   providers: [
   ],

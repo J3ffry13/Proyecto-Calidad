@@ -12,7 +12,7 @@ export class TerminalListadoComponentesComponent implements OnInit {
 
   dataSource: any[] = []
   listadoTerminales: TerminalModel[] = []
-  displayedColumns: string[] = ['nro', 'codigo', 'nombre', 'telefono', 'ciudad', 'direccion','actions'];
+  displayedColumns: string[] = ['nro', 'codigo', 'nombre', 'telefono', 'ciudad', 'direccion'];
 
   constructor(
     private terminalService: TerminalService,
@@ -20,18 +20,10 @@ export class TerminalListadoComponentesComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // this.consultarDatos();
+    this.consultarDatos();
 
     //TEMPORAL (RLIMINAR UNA VEZ HAYA API)
-    this.listadoTerminales = [
-      {codigo: 1, nombre: 'Trujillo', telefono: '4563432', ciudad: 'Lima', direccion:'Av. Perú 3680'},
-      {codigo: 2, nombre: 'Trujillo', telefono: '284667', ciudad: 'Trujillo', direccion:'Av. America Sur 1040'},
-      {codigo: 3, nombre: 'Trujillo', telefono: '3453421', ciudad: 'Chimbote', direccion:'Av. La Grande 321'},
-    ];
-    for (let i = 0; i < this.listadoTerminales.length; i++){
-      this.listadoTerminales[i].nro = i + 1;
-    }
-    this.dataSource = this.listadoTerminales;
+    
   }
 
   /*nuevoReg(element?: TerminalModel){
@@ -47,13 +39,17 @@ export class TerminalListadoComponentesComponent implements OnInit {
   }*/
 
   //PARA CUANDO EL API LEVANTE
-  // consultarDatos(){
-  //   this.terminalService.getAll().subscribe(
-  //     terminal => { 
-  //       this.listadoTerminales = terminal;
-  //       this.dataSource = this.listadoTerminales;
-  //     }
-  //   );
-  // }
+  consultarDatos(){
+    this.terminalService.getAll().subscribe(
+      terminal => { 
+        this.listadoTerminales = terminal;
+        for (let i = 0; i < this.listadoTerminales.length; i++){
+          this.listadoTerminales[i].nro = i + 1;
+        }
+        console.log(this.listadoTerminales);
+        this.dataSource = this.listadoTerminales;
+      }
+    );
+  }
 
 }

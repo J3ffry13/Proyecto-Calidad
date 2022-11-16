@@ -3,6 +3,7 @@ export class ProgViajeModel {
     codigo: string
 	piloto: string;
     pilotoN: string
+    busS: string;
     copiloto: string;
     copilotoN: string
     terramoza: string
@@ -12,7 +13,6 @@ export class ProgViajeModel {
     bus: string;
     busN: string
     fecha: string;
-    
     estado: string
 
     construc(){

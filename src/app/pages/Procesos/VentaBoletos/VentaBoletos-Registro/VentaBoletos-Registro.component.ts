@@ -7,12 +7,20 @@ import { CiudadModel } from 'src/DataBase/Entities/Maestros/Ciudad.model';
 import { RutaModel } from 'src/DataBase/Entities/Maestros/Ruta.model';
 import { TrabajadorModel } from 'src/DataBase/Entities/Maestros/Trabajador.model';
 import { UsuarioModel } from 'src/DataBase/Entities/Maestros/Usuario';
-import { ProgViajeModel } from 'src/DataBase/Entities/Procesos/ProgViaje.model';
+//import { ProgViajeModel } from 'src/DataBase/Entities/Procesos/ProgViaje.model';
 import { BusesService } from 'src/DataBase/Services/Maestros/Buses.Service';
 import { CiudadService } from 'src/DataBase/Services/Maestros/Ciudade.Service';
 import { RutaService } from 'src/DataBase/Services/Maestros/Ruta.Service';
 import { TrabajadorService } from 'src/DataBase/Services/Maestros/Trabajador.Service';
 import { UsuarioService } from 'src/DataBase/Services/Maestros/Usuario.Service';
+import { ServicioService } from 'src/DataBase/Services/Maestros/Servicio.Service';
+import { CompraBoletosService } from 'src/DataBase/Services/Procesos/CompraBoletos.Service';
+import { AsientosService } from 'src/DataBase/Services/Maestros/Asientos.Service';
+import { ProgViajesService } from 'src/DataBase/Services/Procesos/ProgramacionViajes.Service';
+import { ServicioModel } from 'src/DataBase/Entities/Maestros/Servicio.model';
+import { AsientosModel } from 'src/DataBase/Entities/Maestros/Asientos.model';
+import { VentBoletosModel } from 'src/DataBase/Entities/Procesos/VentBoletos.model';
+import { ProgViajeModel } from 'src/DataBase/Entities/Procesos/ProgViaje.model';
 
 @Component({
   selector: 'app-VentaBoletos-registro',
@@ -23,13 +31,17 @@ export class VentaBoletosRegistroComponent implements OnInit {
 
   prog: FormGroup;
   titulo: string = '';
-  programacion: ProgViajeModel
+  programacion: any
 
-  listadoResult: ProgViajeModel[] = [];
-  listadoResultf: ProgViajeModel[] = [];
+  listadoResult: VentBoletosModel[] = [];
+  listadoViajes: ProgViajeModel[] = [];
+  listadoViajesf: ProgViajeModel[] = [];
   listadoCiudades: CiudadModel[] = [];
   listadoRutas: RutaModel[] = [];
+  listadoAsientos: AsientosModel[] = [];
+  listadoAsientosf: AsientosModel[] = [];
   listadoUsuarios: UsuarioModel[] = [];
+  listadoServicios: ServicioModel[] = [];
   listadoTrab: TrabajadorModel[] = [];
   listadoBus: BusesModel[] = [];
 
@@ -40,7 +52,12 @@ export class VentaBoletosRegistroComponent implements OnInit {
     private ciudadesService: CiudadService,
     private trabajadorService: TrabajadorService,
     private usuarioService: UsuarioService,
+    private progviajeService: ProgViajesService,
+    private asientoService: AsientosService,
+    private boletosService: CompraBoletosService,
+    private servicioService: ServicioService,
     @Inject(MAT_DIALOG_DATA) public data: any,
+
   ) { }
 
   ngOnInit(): void { 
@@ -53,35 +70,54 @@ export class VentaBoletosRegistroComponent implements OnInit {
 
   createFrom(){
     this.prog = new FormGroup({
-      codigo: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      piloto: new FormControl('', [Validators.required]),
-      copiloto: new FormControl('', [Validators.required]),
-      terramoza: new FormControl('', [Validators.required]),
-      ruta: new FormControl('', [Validators.required]),
-      bus: new FormControl('', [Validators.required]),
-      // estado: new FormControl('', [Validators.required]),
+      codigo: new FormControl('', [Validators.required]),
+      ruta : new FormControl('', [Validators.required]),
+      fecha : new FormControl('', [Validators.required]),
+      viaje : new FormControl('', [Validators.required]),
+      asiento : new FormControl('', [Validators.required]),
+      pasajero : new FormControl('', [Validators.required]),
     });
-    if(this.programacion != undefined){
+    if(this.programacion !== undefined){
       this.prog.setValue(
         {
           codigo: this.programacion.codigo,
-          // estado: this.programacion.estado,
-          piloto: this.programacion.piloto,
-          copiloto: this.programacion.copiloto,
-          terramoza: this.programacion.terramoza,
-          ruta: this.programacion.ruta,
-          bus: this.programacion.bus,
+          ruta: this.programacion.viajeData.ruta,
+          fecha: this.programacion.fecha,
+          viaje: this.programacion.viaje,
+          asiento: this.programacion.asiento,
+          pasajero:this.programacion.pasajero,
         }
       )
     }
+   
+    this.prog.get("ruta")?.valueChanges.subscribe((selectedValue) => {
+      this.listadoViajesf = this.listadoViajes.filter(
+        (f) => f.ruta == selectedValue,
+      );
+    });
+
+    // this.prog.get("fecha")?.valueChanges.subscribe((selectedValue) => {
+    //   this.listadoViajesf = this.listadoViajes.filter(
+    //     (f) => f.fecha == selectedValue,
+    //   );
+    // });
+
+    this.prog.get("viaje")?.valueChanges.subscribe((selectedValue) => {
+      var busID = this.listadoViajesf.find(
+        (f) => f.codigo == selectedValue,
+      )?.bus;
+      this.listadoAsientosf = this.listadoAsientos.filter(
+        (f) => f.bus == busID,
+      );
+    });
     
   }
   obtenerTitulo(){
     if(this.programacion != undefined ){
-      this.titulo = 'Editar Programacion ' + this.programacion.codigo
+      this.titulo = 'Editar Boleto ' + this.programacion.codigo
       this.prog.controls['codigo'].disable();
     }else {
-      this.titulo = 'Nueva Programacion'
+      this.titulo = 'Nuevo Boleto'
     }
   }
 
@@ -92,10 +128,30 @@ export class VentaBoletosRegistroComponent implements OnInit {
   guardar(){
     
     //OBTENEMOS DATOS :c
-    this.programacion = this.prog.getRawValue();
-    console.log(this.programacion);
-    //ENVIAR DATOS AL SERVER :c
+    
 
+    //ENVIAR DATOS AL SERVER :c
+    if(this.programacion != undefined ){
+      this.programacion.codigo = this.prog.value.codigo;
+      this.programacion.pasajero = this.prog.value.pasajero;
+      this.programacion.asiento = this.prog.value.asiento;
+      this.programacion.viaje = this.prog.value.viaje;
+      this.programacion.fecha = this.prog.value.fecha;
+      this.boletosService.update(this.programacion).subscribe(
+        res => {
+          console.log(res);
+        }
+      )
+    }else {
+      this.programacion = this.prog.getRawValue();
+    
+      this.boletosService.create(this.programacion).subscribe(
+        res => {
+          console.log(res);
+        }
+      )
+    }
+    
     this.dialogRef.close();
   }
 
@@ -106,26 +162,30 @@ export class VentaBoletosRegistroComponent implements OnInit {
       requestThree: this.usuarioService.getAll(),
       requestFour: this.trabajadorService.getAll(),
       requestFive: this.busesService.getAll(),
+      requestSix: this.progviajeService.getAll(),
+      requestSeven: this.asientoService.getAll(),
+      requestFinal: this.boletosService.getAll(),
     }).subscribe(
       ({
         requestOne,
         requestTwo,
         requestThree,
         requestFour,
-        requestFive
+        requestFive,
+        requestSix,
+        requestSeven,
+        requestFinal,
       }) => {
         (this.listadoCiudades = requestOne), (this.listadoRutas = requestTwo);
         for (let i = 0; i < this.listadoRutas.length; i++) {
           const origenN = this.listadoCiudades.find(
             ({ codigo }) => codigo == this.listadoRutas[i].nombreOrigen
           )?.nombre;
-          this.listadoRutas[i].nombreOrigenN =
-            origenN == undefined ? '' : origenN;
+          this.listadoRutas[i].nombreOrigenN = origenN == undefined ? '' : origenN;
           const destinoN = this.listadoCiudades.find(
             ({ codigo }) => codigo == this.listadoRutas[i].nombreDestino
           )?.nombre;
-          this.listadoRutas[i].nombreDestinoN =
-            destinoN == undefined ? '' : destinoN;
+          this.listadoRutas[i].nombreDestinoN = destinoN == undefined ? '' : destinoN;
         }
         this.listadoUsuarios = requestThree;
         this.listadoTrab = requestFour;
@@ -140,6 +200,72 @@ export class VentaBoletosRegistroComponent implements OnInit {
           this.listadoTrab[i].dni = dni == undefined ? '' : dni;
         }
         this.listadoBus = requestFive;
+        this.listadoViajes = requestSix;
+        for (let i = 0; i < this.listadoViajes.length; i++) {
+          const codPi = this.listadoTrab.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].piloto
+          )?.nombre;
+          this.listadoViajes[i].pilotoN = codPi == undefined ? '' : codPi;
+          const codCo = this.listadoTrab.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].copiloto
+          )?.nombre;
+          this.listadoViajes[i].copilotoN = codCo == undefined ? '' : codCo;
+          const codAs = this.listadoTrab.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].terramoza
+          )?.nombre;
+          this.listadoViajes[i].terramozaN = codAs == undefined ? '' : codAs;
+          const codRu = this.listadoRutas.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].ruta
+          )?.nombreOrigenN + ' -> ' + this.listadoRutas.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].ruta
+          )?.nombreDestinoN;
+          this.listadoViajes[i].rutaN = codRu == undefined ? '' : codRu;
+          const codBu = this.listadoBus.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].bus
+          )?.placa;
+          this.listadoViajes[i].busN = codBu == undefined ? '' : codBu;
+          const codSe = this.listadoBus.find(
+            ({ codigo }) => codigo == this.listadoViajes[i].bus
+          )?.servicio;
+          this.listadoViajes[i].busS = codSe == undefined ? '' : codSe;
+        }
+        this.listadoViajesf = this.listadoViajes
+        this.listadoAsientos = requestSeven;
+        this.listadoResult = requestFinal;
+        for (let i = 0; i < this.listadoResult.length; i++) {
+          this.listadoResult[i].nro = i + 1;
+          const usuarioN = this.listadoUsuarios.find(
+            ({ codigo }) => codigo == this.listadoResult[i].pasajero
+          )?.nombre;
+          this.listadoResult[i].pasajeroN = usuarioN == undefined ? '' : usuarioN;
+          const dni = this.listadoUsuarios.find(
+            ({ codigo }) => codigo == this.listadoResult[i].pasajero
+          )?.dni;
+          this.listadoResult[i].pasajerodni = dni == undefined ? '' : dni;
+          const bus = this.listadoViajes.find(
+            ({ codigo }) => codigo == this.listadoResult[i].viaje
+          )?.bus;
+          this.listadoResult[i].bus = bus == undefined ? '' : bus;
+          const viaje = this.listadoViajes.find(
+            ({ codigo }) => codigo == this.listadoResult[i].viaje
+          );
+
+          let xd: any
+          this.listadoResult[i].viajeData = viaje == undefined ? xd : viaje;
+        }
+        for (let i = 0; i < this.listadoResult.length; i++) {
+          const viaje = this.listadoAsientos.find(
+            ({ codigo }) => codigo == this.listadoResult[i].asiento
+          );
+          let xd: any
+          this.listadoResult[i].asientoData = viaje == undefined ? xd : viaje;
+
+          const precio = this.listadoBus.find(
+            ({ codigo }) => codigo == this.listadoResult[i].bus
+          );
+          let xd1: any
+          this.listadoResult[i].busData = precio == undefined ? xd1 : precio;
+        }
       }
     );
   }

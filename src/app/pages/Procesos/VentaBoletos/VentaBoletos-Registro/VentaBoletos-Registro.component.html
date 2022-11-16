@@ -12,32 +12,44 @@
                     placeholder="Código">
             </div>
             <div class="relative z-0 mb-6 w-full group">
-                <label for="piloto" class="block mb-2 text-sm font-medium text-gray-900 ">Piloto</label>
-                <select id="piloto" formControlName="piloto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                <label for="ruta" class="block mb-2 text-sm font-medium text-gray-900 ">Ruta</label>
+                <select id="ruta" formControlName="ruta" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option selected>--Seleccione--</option>
-                    <option [value]="item.codigo" *ngFor="let item of listadoTrab">{{item.dni}} - {{item.nombre}}</option>
+                    <option [value]="item.codigo" *ngFor="let item of listadoRutas">{{item.nombreOrigenN}} -> {{item.nombreDestinoN}}</option>
                 </select>
             </div>
         </div>
         <div class="grid md:grid-cols-2 md:gap-6">
+
             <div class="relative z-0 mb-6 w-full group">
-                <label for="copiloto" class="block mb-2 text-sm font-medium text-gray-900 ">Co-Piloto</label>
-                <select id="copiloto" formControlName="copiloto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option selected>--Seleccione--</option>
-                    <option [value]="item.codigo" *ngFor="let item of listadoTrab">{{item.dni}} - {{item.nombre}}</option>
-                </select>
+                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 ">Fecha</label>
+                <input datepicker type="date" formControlName="fecha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" 
+                placeholder="Fecha">
             </div>
+
             <div class="relative z-0 mb-6 w-full group">
-                <label for="terramoza" class="block mb-2 text-sm font-medium text-gray-900 ">Terramoza</label>
-                <select id="terramoza" formControlName="terramoza" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option selected>--Seleccione--</option>
-                    <option [value]="item.codigo" *ngFor="let item of listadoTrab">{{item.dni}} - {{item.nombre}}</option>
+                <label for="viaje" class="block mb-2 text-sm font-medium text-gray-900 ">Viaje</label>
+                <select id="viaje" formControlName="viaje" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option [value]="item.codigo" *ngFor="let item of listadoViajesf">{{item.busS}} - PLACA : {{item.busN}}</option>
                 </select>
             </div>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 mb-6 w-full group">
+                <label for="asiento" class="block mb-2 text-sm font-medium text-gray-900 ">Asiento</label>
+                <select id="asiento" formControlName="asiento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option selected>--Seleccione--</option>
+                    <option [value]="item.codigo" *ngFor="let item of listadoAsientosf">{{item.numero}} - {{item.posicion}}</option>
+                </select>
+            </div>
+            <div class="relative z-0 mb-6 w-full group">
+                <label for="pasajero" class="block mb-2 text-sm font-medium text-gray-900 ">Pasajero</label>
+                <select id="pasajero" formControlName="pasajero" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option [value]="item.codigo" *ngFor="let item of listadoUsuarios">{{item.dni}} - {{item.nombre}}</option>
+                </select>
+            </div>
+            <!-- <div class="relative z-0 mb-6 w-full group">
                 <label for="ruta" class="block mb-2 text-sm font-medium text-gray-900 ">Ruta</label>
                 <select id="ruta" formControlName="ruta" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option selected>--Seleccione--</option>
@@ -50,7 +62,7 @@
                     <option selected>--Seleccione--</option>
                     <option [value]="item.codigo" *ngFor="let item of listadoBus">{{item.placa}}</option>
                 </select>
-            </div>
+            </div> -->
         </div> 
         <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 m-auto w-full group">

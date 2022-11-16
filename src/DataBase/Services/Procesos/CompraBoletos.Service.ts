@@ -22,19 +22,16 @@ import { VentBoletosModel } from 'src/DataBase/Entities/Procesos/VentBoletos.mod
     }
   
     // //grabar
-    // create(ingreso: TerminalModel): Observable<TerminalModel>{
-    //   return this.http.post<TerminalModel>(this.url, ingreso, {headers: this.httpHeaders})
-    // }
-  
-    // //get-one
-    // getOne(id:undefined): Observable<TerminalModel>{
-    //   return this.http.get<TerminalModel>(`${this.url}/${id}`)
-    // }
+    create(ingreso: any):Observable<any>{
+      console.log(ingreso);
+      return this.http.post<any>(this.url+'registrar', ingreso, {headers: this.httpHeaders})
+    }
   
     // //update
-    // update(ingreso: TerminalModel): Observable<TerminalModel>{
-    //   return this.http.put<TerminalModel>(`${this.url}/${ingreso.codigo}`, ingreso, {headers: this.httpHeaders})
-    // }
+    update(ingreso: any): Observable<any>{
+      console.log(ingreso);
+      return this.http.put<any>(this.url+'modificar', ingreso, {headers: this.httpHeaders})
+    }
   
     // //delete
     // delete(id:number): Observable<TerminalModel>{

@@ -18,7 +18,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     //get-all
     constructor(private http: HttpClient) {}
     getAll(): Observable<TerminalModel[]> {
-      return this.http.get<TerminalModel[]>(this.url+'consultarT?patron=');
+      return this.http.get<TerminalModel[]>(this.url+'consultar?patron=');
     }
   
     //grabar

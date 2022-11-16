@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { forkJoin, of, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CiudadModel } from 'src/DataBase/Entities/Maestros/Ciudad.model';
@@ -17,7 +17,11 @@ import { VentaBoletosRegistroComponent } from '../VentaBoletos-Registro/VentaBol
 import { CompraBoletosService } from 'src/DataBase/Services/Procesos/CompraBoletos.Service';
 import { VentBoletosModel } from 'src/DataBase/Entities/Procesos/VentBoletos.model';
 import { AsientosModel } from 'src/DataBase/Entities/Maestros/Asientos.model';
+import {MatPaginator} from '@angular/material/paginator';
 import { AsientosService } from 'src/DataBase/Services/Maestros/Asientos.Service';
+import { ServicioService } from 'src/DataBase/Services/Maestros/Servicio.Service';
+import { ServicioModel } from 'src/DataBase/Entities/Maestros/Servicio.model';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -26,7 +30,7 @@ import { AsientosService } from 'src/DataBase/Services/Maestros/Asientos.Service
   styleUrls: ['./VentaBoletos-Listado.component.css'],
 })
 export class VentaBoletosListadoComponent implements OnInit {
-  dataSource: any[] = [];
+  dataSource = new MatTableDataSource<VentBoletosModel>()
   listadoResult: VentBoletosModel[] = [];
   listadoViajes: ProgViajeModel[] = [];
   listadoViajesf: ProgViajeModel[] = [];
@@ -34,6 +38,7 @@ export class VentaBoletosListadoComponent implements OnInit {
   listadoRutas: RutaModel[] = [];
   listadoAsientos: AsientosModel[] = [];
   listadoUsuarios: UsuarioModel[] = [];
+  listadoServicios: ServicioModel[] = [];
   listadoTrab: TrabajadorModel[] = [];
   listadoBus: BusesModel[] = [];
   displayedColumns: string[] = [
@@ -48,6 +53,7 @@ export class VentaBoletosListadoComponent implements OnInit {
     'precio',
     'actions',
   ];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private progviajeService: ProgViajesService,
@@ -58,6 +64,7 @@ export class VentaBoletosListadoComponent implements OnInit {
     private trabajadorService: TrabajadorService,
     private usuarioService: UsuarioService,
     private boletosService: CompraBoletosService,
+    private servicioService: ServicioService,
     public dialog: MatDialog
   ) {}
 
@@ -102,13 +109,11 @@ export class VentaBoletosListadoComponent implements OnInit {
           const origenN = this.listadoCiudades.find(
             ({ codigo }) => codigo == this.listadoRutas[i].nombreOrigen
           )?.nombre;
-          this.listadoRutas[i].nombreOrigenN =
-            origenN == undefined ? '' : origenN;
+          this.listadoRutas[i].nombreOrigenN = origenN == undefined ? '' : origenN;
           const destinoN = this.listadoCiudades.find(
             ({ codigo }) => codigo == this.listadoRutas[i].nombreDestino
           )?.nombre;
-          this.listadoRutas[i].nombreDestinoN =
-            destinoN == undefined ? '' : destinoN;
+          this.listadoRutas[i].nombreDestinoN = destinoN == undefined ? '' : destinoN;
         }
         this.listadoUsuarios = requestThree;
         this.listadoTrab = requestFour;
@@ -147,8 +152,8 @@ export class VentaBoletosListadoComponent implements OnInit {
             ({ codigo }) => codigo == this.listadoViajes[i].bus
           )?.placa;
           this.listadoViajes[i].busN = codBu == undefined ? '' : codBu;
-        }  
-        this.listadoAsientos = requestSeven;  
+        }
+        this.listadoAsientos = requestSeven;
         this.listadoResult = requestFinal;
         for (let i = 0; i < this.listadoResult.length; i++) {
           this.listadoResult[i].nro = i + 1;
@@ -160,9 +165,14 @@ export class VentaBoletosListadoComponent implements OnInit {
             ({ codigo }) => codigo == this.listadoResult[i].pasajero
           )?.dni;
           this.listadoResult[i].pasajerodni = dni == undefined ? '' : dni;
+          const bus = this.listadoViajes.find(
+            ({ codigo }) => codigo == this.listadoResult[i].viaje
+          )?.bus;
+          this.listadoResult[i].bus = bus == undefined ? '' : bus;
           const viaje = this.listadoViajes.find(
             ({ codigo }) => codigo == this.listadoResult[i].viaje
           );
+
           let xd: any
           this.listadoResult[i].viajeData = viaje == undefined ? xd : viaje;
         }
@@ -172,9 +182,15 @@ export class VentaBoletosListadoComponent implements OnInit {
           );
           let xd: any
           this.listadoResult[i].asientoData = viaje == undefined ? xd : viaje;
+
+          const precio = this.listadoBus.find(
+            ({ codigo }) => codigo == this.listadoResult[i].bus
+          );
+          let xd1: any
+          this.listadoResult[i].busData = precio == undefined ? xd1 : precio;
         }
-        console.log(this.listadoBus)
-        this.dataSource = this.listadoResult;
+        this.dataSource.data = this.listadoResult;
+        this.dataSource.paginator = this.paginator;
       }
     );
   }
